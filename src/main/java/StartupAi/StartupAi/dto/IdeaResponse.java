@@ -13,6 +13,7 @@ public class IdeaResponse {
     private List<CompetitorDto> competitors;
     private List<BusinessModelDto> businessModels;
     private List<RoadmapDto> roadmaps;
+    private List<String> suggestedTechnologies;
 
     // Constructors
     public IdeaResponse() {}
@@ -47,4 +48,7 @@ public class IdeaResponse {
 
     public List<RoadmapDto> getRoadmaps() { return roadmaps; }
     public void setRoadmaps(List<RoadmapDto> roadmaps) { this.roadmaps = roadmaps; }
+
+    public List<String> getSuggestedTechnologies() { return suggestedTechnologies; }
+    public void setSuggestedTechnologies(List<String> suggestedTechnologies) { this.suggestedTechnologies = suggestedTechnologies; }
 }

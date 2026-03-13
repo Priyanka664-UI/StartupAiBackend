@@ -12,11 +12,12 @@ public class IdeaGeneratorAgent {
     
     public String generateIdea(IdeaGenerationRequest request) {
         String prompt = String.format(
-            "You are a startup innovation expert. Generate a unique startup idea based on: " +
-            "Skills: %s, Interests: %s, Industry: %s, Budget: %s, Target Audience: %s. " +
-            "Provide the idea title, problem statement, and solution.",
-            request.getSkills(), request.getInterests(), request.getIndustry(), 
-            request.getBudget(), request.getTargetAudience()
+            "You are a startup innovation expert. Analyze the user's idea and refine it into a strong startup concept. " +
+            "Provide a clear problem statement and solution. " +
+            "Problem: %s, Skills: %s, Industry: %s, Target Audience: %s, Budget: %s, Technology: %s, Innovation Goal: %s. " +
+            "Generate a refined startup idea with a catchy title, clear problem statement, and innovative solution.",
+            request.getStartupProblem(), request.getUserSkills(), request.getIndustry(), 
+            request.getTargetAudience(), request.getBudgetRange(), request.getPreferredTechnology(), request.getInnovationGoal()
         );
         return aiAgentService.generateResponse(prompt);
     }
