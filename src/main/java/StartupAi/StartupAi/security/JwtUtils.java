@@ -24,10 +24,18 @@ public class JwtUtils {
     }
     
     public String generateJwtToken(Authentication authentication) {
-        UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
+        String username;
+        
+        if (authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
+            username = userPrincipal.getUsername();
+        } else {
+            // Handle case where principal is a String (like in OAuth)
+            username = authentication.getName();
+        }
         
         return Jwts.builder()
-            .setSubject(userPrincipal.getUsername())
+            .setSubject(username)
             .setIssuedAt(new Date())
             .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
             .signWith(getSigningKey(), SignatureAlgorithm.HS256)

@@ -1,5 +1,6 @@
 package StartupAi.StartupAi.model;
 
+import StartupAi.StartupAi.model.AuthProvider;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -21,8 +22,14 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    @NotBlank
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "provider")
+    private AuthProvider provider = AuthProvider.LOCAL;
+
+    @Column(name = "provider_id")
+    private String providerId;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -37,6 +44,14 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public User(String name, String email, String password, AuthProvider provider, String providerId) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.provider = provider;
+        this.providerId = providerId;
     }
 
     // Getters and Setters
@@ -57,4 +72,10 @@ public class User {
 
     public List<StartupIdea> getStartupIdeas() { return startupIdeas; }
     public void setStartupIdeas(List<StartupIdea> startupIdeas) { this.startupIdeas = startupIdeas; }
+
+    public AuthProvider getProvider() { return provider; }
+    public void setProvider(AuthProvider provider) { this.provider = provider; }
+
+    public String getProviderId() { return providerId; }
+    public void setProviderId(String providerId) { this.providerId = providerId; }
 }

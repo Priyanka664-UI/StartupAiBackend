@@ -48,9 +48,11 @@ public class SecurityConfig {
             User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
             
+            String password = user.getPassword() != null ? user.getPassword() : "";
+            
             return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getEmail())
-                .password(user.getPassword())
+                .password(password)
                 .authorities("USER")
                 .build();
         };
